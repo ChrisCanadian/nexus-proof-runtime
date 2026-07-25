@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Nexus Proof Runtime execution proof chain</title>
+  <desc id="desc">A model proposal passes through authority, contract, execution, evidence, and claim gates before delivery.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1018"/>
+      <stop offset="1" stop-color="#131f2a"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#28d7c0"/>
+      <stop offset="1" stop-color="#69a9ff"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#55c8dc"/>
+    </marker>
+    <style>
+      .eyebrow{font:700 15px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:3px;fill:#28d7c0}
+      .heading{font:700 35px Inter,Segoe UI,sans-serif;fill:#f3f7fb}
+      .sub{font:400 17px Inter,Segoe UI,sans-serif;fill:#9fb1c3}
+      .num{font:700 14px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#071018}
+      .label{font:700 18px Inter,Segoe UI,sans-serif;fill:#f3f7fb}
+      .small{font:400 14px Inter,Segoe UI,sans-serif;fill:#9fb1c3}
+      .footer{font:600 16px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#b8c7d5}
+    </style>
+  </defs>
+  <rect width="1200" height="560" rx="24" fill="url(#bg)"/>
+  <path d="M0 74H1200M0 486H1200" stroke="#1d3341" stroke-width="1"/>
+  <path d="M56 26V534M1144 26V534" stroke="#172a36" stroke-width="1"/>
+  <text x="64" y="68" class="eyebrow">NEXUS PROOF RUNTIME</text>
+  <text x="64" y="115" class="heading">The execution proof chain</text>
+  <text x="64" y="148" class="sub">A model may propose an action. The runtime owns the proof.</text>
+
+  <path d="M224 295H280M448 295H504M672 295H728M896 295H952" stroke="url(#edge)" stroke-width="4" marker-end="url(#arrow)" filter="url(#glow)"/>
+
+  <g transform="translate(56 210)">
+    <rect width="168" height="170" rx="14" fill="#101b24" stroke="#2a4657" stroke-width="2"/>
+    <circle cx="28" cy="28" r="15" fill="#28d7c0"/><text x="28" y="33" text-anchor="middle" class="num">01</text>
+    <text x="20" y="78" class="label">PROPOSAL</text>
+    <text x="20" y="109" class="small">Tool + version</text>
+    <text x="20" y="132" class="small">Schema arguments</text>
+    <text x="20" y="155" class="small">No trusted identity</text>
+  </g>
+  <g transform="translate(280 210)">
+    <rect width="168" height="170" rx="14" fill="#101b24" stroke="#2a4657" stroke-width="2"/>
+    <circle cx="28" cy="28" r="15" fill="#37cfcb"/><text x="28" y="33" text-anchor="middle" class="num">02</text>
+    <text x="20" y="78" class="label">AUTHORITY</text>
+    <text x="20" y="109" class="small">Permission gate</text>
+    <text x="20" y="132" class="small">Approval check</text>
+    <text x="20" y="155" class="small">Deny by default</text>
+  </g>
+  <g transform="translate(504 210)">
+    <rect width="168" height="170" rx="14" fill="#101b24" stroke="#2a4657" stroke-width="2"/>
+    <circle cx="28" cy="28" r="15" fill="#47c3d7"/><text x="28" y="33" text-anchor="middle" class="num">03</text>
+    <text x="20" y="78" class="label">EXECUTION</text>
+    <text x="20" y="109" class="small">Contract validation</text>
+    <text x="20" y="132" class="small">Scoped idempotency</text>
+    <text x="20" y="155" class="small">Narrow retry</text>
+  </g>
+  <g transform="translate(728 210)">
+    <rect width="168" height="170" rx="14" fill="#101b24" stroke="#2a4657" stroke-width="2"/>
+    <circle cx="28" cy="28" r="15" fill="#58b7e7"/><text x="28" y="33" text-anchor="middle" class="num">04</text>
+    <text x="20" y="78" class="label">EVIDENCE</text>
+    <text x="20" y="109" class="small">Terminal receipt</text>
+    <text x="20" y="132" class="small">Atomic artifact</text>
+    <text x="20" y="155" class="small">SHA-256 integrity</text>
+  </g>
+  <g transform="translate(952 210)">
+    <rect width="192" height="170" rx="14" fill="#122131" stroke="#69a9ff" stroke-width="2"/>
+    <circle cx="28" cy="28" r="15" fill="#69a9ff"/><text x="28" y="33" text-anchor="middle" class="num">05</text>
+    <text x="20" y="78" class="label">DELIVERY</text>
+    <text x="20" y="109" class="small">Claims matched</text>
+    <text x="20" y="132" class="small">to runtime evidence</text>
+    <text x="20" y="155" class="small">Deliver · correct · block</text>
+  </g>
+
+  <rect x="56" y="426" width="1088" height="54" rx="10" fill="#0b151d" stroke="#223c4c"/>
+  <text x="600" y="459" text-anchor="middle" class="footer">PROPOSAL ≠ EXECUTION  ·  EXECUTION ≠ PROOF  ·  PROOF PRECEDES CLAIM</text>
+</svg>

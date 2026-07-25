@@ -1,0 +1,7 @@
+Nexus Proof Runtime
+Copyright 2026 Christopher Campbell
+
+This standalone reference implementation demonstrates generic receipt-backed tool execution and
+artifact evidence. "Nexus Synapse" identifies a separate proprietary system and is not licensed
+under this repository.
+

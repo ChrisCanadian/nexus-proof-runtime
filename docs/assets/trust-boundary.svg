@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Nexus Proof Runtime trust boundary</title>
+  <desc id="desc">The untrusted model can propose tools and arguments; the trusted host owns identity, policy, execution, receipts, artifacts, and claim checks.</desc>
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#091018"/><stop offset="1" stop-color="#14212c"/>
+    </linearGradient>
+    <style>
+      .kicker{font:700 14px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:3px;fill:#28d7c0}
+      .title{font:700 34px Inter,Segoe UI,sans-serif;fill:#f3f7fb}
+      .zone{font:700 18px Inter,Segoe UI,sans-serif;letter-spacing:1px}
+      .node{font:700 17px Inter,Segoe UI,sans-serif;fill:#f3f7fb}
+      .detail{font:400 14px Inter,Segoe UI,sans-serif;fill:#a9bac9}
+      .edge{font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#84d8df}
+    </style>
+    <marker id="a2" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#4ccbd5"/></marker>
+  </defs>
+  <rect width="1200" height="700" rx="24" fill="url(#bg2)"/>
+  <text x="56" y="60" class="kicker">AUTHORITY MAP</text>
+  <text x="56" y="105" class="title">Who is allowed to decide what?</text>
+
+  <rect x="56" y="148" width="300" height="486" rx="18" fill="#18171c" stroke="#755766" stroke-width="2"/>
+  <text x="84" y="188" class="zone" fill="#df9fb9">UNTRUSTED PROPOSAL</text>
+  <rect x="84" y="226" width="244" height="132" rx="12" fill="#211d25" stroke="#694f5b"/>
+  <text x="108" y="266" class="node">MODEL / PROVIDER</text>
+  <text x="108" y="298" class="detail">May choose tool + version</text>
+  <text x="108" y="323" class="detail">May supply arguments</text>
+  <text x="108" y="348" class="detail">May narrate a result</text>
+  <rect x="84" y="402" width="244" height="170" rx="12" fill="#17171b" stroke="#4d4148"/>
+  <text x="108" y="442" class="node">CANNOT OWN</text>
+  <text x="108" y="474" class="detail">Principal or scope</text>
+  <text x="108" y="499" class="detail">Permissions or approvals</text>
+  <text x="108" y="524" class="detail">Receipts or artifact hashes</text>
+  <text x="108" y="549" class="detail">The truth of its own claim</text>
+
+  <rect x="438" y="148" width="706" height="486" rx="18" fill="#0d1b22" stroke="#2dc9c0" stroke-width="2"/>
+  <text x="466" y="188" class="zone" fill="#45d8ca">TRUSTED HOST RUNTIME</text>
+
+  <g transform="translate(466 226)">
+    <rect width="200" height="116" rx="12" fill="#112630" stroke="#2b6d73"/>
+    <text x="22" y="40" class="node">HOST CONTEXT</text>
+    <text x="22" y="70" class="detail">Principal · scope</text>
+    <text x="22" y="94" class="detail">Permissions · approvals</text>
+  </g>
+  <g transform="translate(706 226)">
+    <rect width="200" height="116" rx="12" fill="#112630" stroke="#2b6d73"/>
+    <text x="22" y="40" class="node">POLICY + CONTRACT</text>
+    <text x="22" y="70" class="detail">Visibility · enablement</text>
+    <text x="22" y="94" class="detail">Input/output schema</text>
+  </g>
+  <g transform="translate(946 226)">
+    <rect width="170" height="116" rx="12" fill="#112630" stroke="#2b6d73"/>
+    <text x="20" y="40" class="node">EXECUTOR</text>
+    <text x="20" y="70" class="detail">Invoke · cancel</text>
+    <text x="20" y="94" class="detail">Retry · replay</text>
+  </g>
+  <g transform="translate(586 410)">
+    <rect width="200" height="116" rx="12" fill="#102435" stroke="#397eae"/>
+    <text x="22" y="40" class="node">EVIDENCE STORES</text>
+    <text x="22" y="70" class="detail">Terminal receipts</text>
+    <text x="22" y="94" class="detail">Verified artifacts</text>
+  </g>
+  <g transform="translate(826 410)">
+    <rect width="200" height="116" rx="12" fill="#102435" stroke="#397eae"/>
+    <text x="22" y="40" class="node">CLAIM GATE</text>
+    <text x="22" y="70" class="detail">Match narration</text>
+    <text x="22" y="94" class="detail">against evidence</text>
+  </g>
+
+  <path d="M328 292H454" stroke="#4ccbd5" stroke-width="3" marker-end="url(#a2)"/>
+  <text x="391" y="278" text-anchor="middle" class="edge">PROPOSE</text>
+  <path d="M666 284H694M906 284H934" stroke="#4ccbd5" stroke-width="3" marker-end="url(#a2)"/>
+  <path d="M1031 342V380H686V398" fill="none" stroke="#4ccbd5" stroke-width="3" marker-end="url(#a2)"/>
+  <path d="M786 468H814" stroke="#4ccbd5" stroke-width="3" marker-end="url(#a2)"/>
+
+  <text x="791" y="590" text-anchor="middle" class="edge">THE MODEL REQUESTS · THE HOST AUTHORIZES · THE RECEIPT PROVES</text>
+</svg>
