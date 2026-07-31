@@ -124,5 +124,18 @@ class ReceiptStore:
             ).fetchone()
 
 
+    def close(self) -> None:
+        """Release the underlying SQLite connection."""
+
+        with self._lock:
+            self._connection.close()
+
+    def __enter__(self) -> ReceiptStore:
+        return self
+
+    def __exit__(self, *exc_info: object) -> None:
+        self.close()
+
+
 def _json(value: Any) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)

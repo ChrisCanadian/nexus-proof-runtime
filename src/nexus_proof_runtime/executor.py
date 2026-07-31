@@ -130,18 +130,19 @@ class ToolExecutor:
         result = ToolResult({})
         error_code: str | None = None
         status = "FAILED"
+        execution_context = context.for_execution()
         for attempt in range(1, manifest.retry.max_attempts + 1):
             attempts = attempt
             pool = ThreadPoolExecutor(max_workers=1)
             try:
-                future = pool.submit(handler, dict(arguments), context)
+                future = pool.submit(handler, dict(arguments), execution_context)
                 result = future.result(timeout=manifest.timeout_ms / 1000)
                 self._validate(manifest.output_schema, result.output, "INVALID_RESULT")
                 status = "SUCCEEDED"
                 error_code = None
                 break
             except FutureTimeout:
-                context.cancellation.cancel()
+                execution_context.cancellation.cancel()
                 future.cancel()
                 status, error_code = "TIMED_OUT", "TOOL_TIMEOUT"
                 break

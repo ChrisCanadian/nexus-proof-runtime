@@ -274,6 +274,7 @@ def test_timeout_signals_cooperative_cancellation(runtime):
         time.sleep(0.002)
     assert (outcome.status, outcome.error_code) == ("TIMED_OUT", "TOOL_TIMEOUT")
     assert observed == ["cancelled"]
+    assert not allowed.cancellation.cancelled
 
 
 def test_invalid_handler_result_is_not_reported_as_success(runtime):
@@ -293,7 +294,10 @@ def test_artifact_hash_detects_tampering():
     with tempfile.TemporaryDirectory() as temporary:
         artifacts = ArtifactStore(temporary)
         record = artifacts.create(
-            filename="proof.md", media_type="text/markdown", content=b"# proof\n"
+            filename="proof.md",
+            media_type="text/markdown",
+            content=b"# proof\n",
+            context=ExecutionContext(Principal("user-1", "project-a"), "artifact"),
         )
         assert artifacts.verify(record.artifact_id)
         record.path.write_bytes(b"tampered")
@@ -303,7 +307,10 @@ def test_artifact_hash_detects_tampering():
 def test_artifact_rejects_path_traversal():
     with tempfile.TemporaryDirectory() as temporary, pytest.raises(ValueError):
         ArtifactStore(temporary).create(
-            filename="../escape.md", media_type="text/markdown", content=b"no"
+            filename="../escape.md",
+            media_type="text/markdown",
+            content=b"no",
+            context=ExecutionContext(Principal("user-1", "project-a"), "artifact"),
         )
 
 
@@ -312,7 +319,10 @@ def test_claim_gate_requires_receipt_and_verified_artifact(runtime):
     with tempfile.TemporaryDirectory() as temporary:
         artifacts = ArtifactStore(Path(temporary) / "artifacts")
         artifact = artifacts.create(
-            filename="proof.md", media_type="text/markdown", content=b"# proof\n"
+            filename="proof.md",
+            media_type="text/markdown",
+            content=b"# proof\n",
+            context=allowed,
         )
         registry.register(
             manifest(),
@@ -331,7 +341,8 @@ def test_claim_gate_requires_receipt_and_verified_artifact(runtime):
                 Claim("artifact_exists", artifact.artifact_id),
                 Claim("tool_succeeded", "invented"),
                 Claim("artifact_exists", "invented"),
-            )
+            ),
+            context=allowed,
         )
         assert [item.valid for item in checks] == [True, True, False, False]
 
