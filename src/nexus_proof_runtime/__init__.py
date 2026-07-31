@@ -1,7 +1,7 @@
 """Public API for Nexus Proof Runtime."""
 
 from .artifacts import ArtifactRecord, ArtifactStore
-from .claims import Claim, ClaimCheck, ClaimGate
+from .claims import Claim, ClaimCheck, ClaimGate, ClaimVerificationContext
 from .domain import CancellationToken, ExecutionContext, Principal, Receipt, ToolResult
 from .executor import ExecutionOutcome, ToolExecutor, ToolRuntimeError
 from .manifests import RetryPolicy, ToolManifest
@@ -16,6 +16,7 @@ __all__ = [
     "Claim",
     "ClaimCheck",
     "ClaimGate",
+    "ClaimVerificationContext",
     "ExecutionContext",
     "ExecutionOutcome",
     "PolicyDecision",

@@ -26,8 +26,8 @@ Nexus Proof Runtime separates those responsibilities:
 4. JSON Schema validates inputs and outputs.
 5. The executor binds idempotency to identity, scope, tool version, and argument hash.
 6. Every terminal outcome receives a runtime-owned receipt.
-7. Artifacts are written atomically and verified by SHA-256.
-8. Structured response claims are checked against receipts and artifact bytes.
+7. Artifacts are written atomically, owner-bound, and verified by SHA-256.
+8. Structured response claims are authorized against host-owned principal and scope.
 
 ## Quick start
 
@@ -61,10 +61,10 @@ checks both claims without calling an external model.
 - Scoped, argument-bound idempotent replay
 - Declared retryability instead of catching every failure
 - Pre-start and cooperative in-flight cancellation
-- Timeout signaling through the same cooperative token
-- Terminal execution receipts
-- Atomic artifact writes and SHA-256 tamper detection
-- Receipt-backed tool-success and artifact-existence claims
+- Parent cancellation propagation with isolated per-execution timeout signals
+- Principal- and scope-bound terminal execution receipts
+- Owner-bound atomic artifact writes and SHA-256 tamper detection
+- Trusted-context tool-success and artifact-existence claim verification
 - Capability-aware provider fallback that preserves tool context
 - Offline deterministic tests
 
@@ -78,8 +78,10 @@ This is an execution/evidence kernel, not a complete agent framework. It does no
 - distributed queues or multi-node transaction coordination;
 - forced termination of arbitrary Python code.
 
-Python handlers must honor the cooperative cancellation token. Untrusted or non-cooperative tools
-should run in a separate worker/container whose process can be terminated by the host.
+Python handlers must honor the per-execution cooperative cancellation token. A timeout cancels
+only that execution; explicit host cancellation propagates from the parent context. Untrusted or
+non-cooperative tools should run in a separate worker/container whose process can be terminated
+by the host.
 
 See [Architecture](docs/ARCHITECTURE.md), [Security and scope](SECURITY.md), and
 [Public boundary](docs/PUBLIC_BOUNDARY.md).
@@ -91,7 +93,7 @@ See [Architecture](docs/ARCHITECTURE.md), [Security and scope](SECURITY.md), and
 
 ## Status
 
-`0.1.0` is a reference release candidate. Its tests demonstrate behavior; they are not a
+`0.1.1` is a security-hardening release candidate. Its tests demonstrate behavior; they are not a
 third-party security audit or a production certification.
 
 ## License

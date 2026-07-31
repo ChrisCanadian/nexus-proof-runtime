@@ -14,7 +14,7 @@ release.
       correction code is added.
 - [ ] Create the GitHub repository with a fresh initial commit.
 - [ ] Enable branch protection and required `validate` checks.
-- [ ] Publish `0.1.0` as a release candidate, not a production certification.
+- [ ] Publish `0.1.1` as a release candidate, not a production certification.
 
 ## October V1 SSR Gist
 

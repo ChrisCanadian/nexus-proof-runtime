@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from uuid import uuid4
 
+from .domain import ExecutionContext
+
 
 @dataclass(frozen=True, slots=True)
 class ArtifactRecord:
@@ -16,6 +18,8 @@ class ArtifactRecord:
     sha256: str
     size_bytes: int
     path: Path
+    principal_id: str
+    scope: str
 
 
 class ArtifactStore:
@@ -26,7 +30,14 @@ class ArtifactStore:
         self.root.mkdir(parents=True, exist_ok=True)
         self._records: dict[str, ArtifactRecord] = {}
 
-    def create(self, *, filename: str, media_type: str, content: bytes) -> ArtifactRecord:
+    def create(
+        self,
+        *,
+        filename: str,
+        media_type: str,
+        content: bytes,
+        context: ExecutionContext,
+    ) -> ArtifactRecord:
         if not content:
             raise ValueError("an artifact must contain bytes")
         safe_name = Path(filename).name
@@ -51,6 +62,8 @@ class ArtifactStore:
             sha256=hashlib.sha256(content).hexdigest(),
             size_bytes=len(content),
             path=target,
+            principal_id=context.principal.principal_id,
+            scope=context.principal.scope,
         )
         self._records[artifact_id] = record
         return record

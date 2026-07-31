@@ -14,9 +14,11 @@ from .registry import ToolRegistry
 
 
 def main() -> None:
-    with tempfile.TemporaryDirectory() as temporary:
+    with (
+        tempfile.TemporaryDirectory() as temporary,
+        ReceiptStore(Path(temporary) / "receipts.db") as receipts,
+    ):
         artifacts = ArtifactStore(Path(temporary) / "artifacts")
-        receipts = ReceiptStore(Path(temporary) / "receipts.db")
         registry = ToolRegistry()
 
         def write_markdown(arguments: dict, context: ExecutionContext) -> ToolResult:
@@ -25,6 +27,7 @@ def main() -> None:
                 filename=arguments["filename"],
                 media_type="text/markdown",
                 content=arguments["content"].encode(),
+                context=context,
             )
             return ToolResult(
                 {"artifact_id": artifact.artifact_id, "sha256": artifact.sha256},
@@ -84,7 +87,7 @@ def main() -> None:
                     "artifact_ids": outcome.artifact_ids,
                     "claims": [
                         {"kind": item.claim.kind, "valid": item.valid, "code": item.code}
-                        for item in ClaimGate(receipts, artifacts).check(claims)
+                        for item in ClaimGate(receipts, artifacts).check(claims, context=context)
                     ],
                 },
                 indent=2,

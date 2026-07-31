@@ -22,17 +22,23 @@ class Principal:
 
 
 class CancellationToken:
-    """Cooperative cancellation shared with a running tool handler."""
+    """Cooperative cancellation signal with optional parent propagation."""
 
-    def __init__(self) -> None:
+    def __init__(self, parent: CancellationToken | None = None) -> None:
         self._event = Event()
+        self._parent = parent
 
     def cancel(self) -> None:
         self._event.set()
 
     @property
     def cancelled(self) -> bool:
-        return self._event.is_set()
+        return self._event.is_set() or bool(self._parent and self._parent.cancelled)
+
+    def child(self) -> CancellationToken:
+        """Return an independently cancellable signal linked to this parent."""
+
+        return CancellationToken(parent=self)
 
     def raise_if_cancelled(self) -> None:
         if self.cancelled:
@@ -45,10 +51,22 @@ class ToolCancelled(RuntimeError):
 
 @dataclass(frozen=True, slots=True)
 class ExecutionContext:
+    """Host-owned identity and parent cancellation state for tool executions."""
+
     principal: Principal
     correlation_id: str
     approvals: frozenset[str] = frozenset()
     cancellation: CancellationToken = field(default_factory=CancellationToken)
+
+    def for_execution(self) -> ExecutionContext:
+        """Create a handler context whose timeout cancellation is execution-local."""
+
+        return ExecutionContext(
+            principal=self.principal,
+            correlation_id=self.correlation_id,
+            approvals=self.approvals,
+            cancellation=self.cancellation.child(),
+        )
 
 
 @dataclass(frozen=True, slots=True)
