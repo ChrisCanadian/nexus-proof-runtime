@@ -96,6 +96,10 @@ See [Architecture](docs/ARCHITECTURE.md), [Security and scope](SECURITY.md), and
 `0.1.1` is a security-hardening release candidate. Its tests demonstrate behavior; they are not a
 third-party security audit or a production certification.
 
+## Attribution and provenance
+
+See [`PROVENANCE.md`](PROVENANCE.md) for the standalone implementation lineage, private Nexus boundary, and attribution-operation reference.
+
 ## License
 
 Apache License 2.0. See `LICENSE`.
