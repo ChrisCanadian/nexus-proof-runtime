@@ -93,8 +93,10 @@ See [Architecture](docs/ARCHITECTURE.md), [Security and scope](SECURITY.md), and
 
 ## Status
 
-`0.1.1` is a security-hardening release candidate. Its tests demonstrate behavior; they are not a
-third-party security audit or a production certification.
+`v0.1.1` is the published security-hardening reference release. Its tests demonstrate behavior;
+they are not a third-party security audit or a production certification.
+
+Release: [Nexus Proof Runtime v0.1.1](https://github.com/ChrisCanadian/nexus-proof-runtime/releases/tag/v0.1.1).
 
 ## Attribution and provenance
 
